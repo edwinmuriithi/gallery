@@ -24,6 +24,13 @@ pipeline{
                 sh 'npm test'
             }
         }
+        stage('Deploy on Render'){
+            steps{
+                withCredentials([usernameColonPassword(credentialsId: 'render', variable: 'RENDER_CREDENTIALS')]) {
+                sh 'git push https://api.render.com/deploy/srv-cgqpti3k9u5es1410ss0?key=_s20vqRg2mo'
+}
+            }
+        }
         
     }
 }
