@@ -37,6 +37,6 @@ pipeline{
         steps{
             slackSend channel: '#nodejs-gallery', color: '#00FF00', message: "Build ${env.BUILD_NUMBER} has been successful (<https://galler-nodejs.onrender.com/|Open>)", teamDomain: 'edwinmip1', tokenCredentialId: 'Slack'
         }
-    }
+    }}
 }
 
