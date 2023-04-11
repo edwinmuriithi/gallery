@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "mocha --exit"
+    "test": "mocha --exit --ui bdd --reporter list"
   },
   "keywords": [],
   "author": "",
