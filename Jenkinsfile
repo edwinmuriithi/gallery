@@ -15,9 +15,15 @@ pipeline{
             }
         }
         stage('Tests'){
+            post{
+                failure{
+                    mail bcc: '', body: 'Build failed. Check on repository.', cc: '', from: '', replyTo: '', subject: 'Build Failure', to: 'kabuimuriithi@gmail.com'
+                }
+            }
             steps{
                 sh 'npm test'
             }
         }
+        
     }
 }
