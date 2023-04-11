@@ -26,18 +26,17 @@ pipeline{
         }
         stage('Deploy on Render'){
             steps{
-                renderDeploy(
-                    credentialsId: 'RENDER_CREDENTIALS',
-                    serviceId: 'srv-cgqpti3k9u5es1410ss0',
-
-                )
-                
-                
+                withCredentials([usernameColonPassword(credentialsId: 'render', variable: 'RENDER_CREDENTIALS')]) {
+                sh 'git push https://api.render.com/deploy/srv-cgqpti3k9u5es1410ss0?key=_s20vqRg2mo'
+                     
             }
         }
         
     }
+    stage('Slack integration'){
+        steps{
+            slackSend channel: '#nodejs-gallery', color: '#00FF00', message: "Build ${env.BUILD_NUMBER} has been successful (<https://galler-nodejs.onrender.com/|Open>)", teamDomain: 'edwinmip1', tokenCredentialId: 'Slack'
+        }
+    }
 }
 
-// withCredentials([usernameColonPassword(credentialsId: 'render', variable: 'RENDER_CREDENTIALS')]) {
-//                 sh 'git push https://api.render.com/deploy/srv-cgqpti3k9u5es1410ss0?key=_s20vqRg2mo'
