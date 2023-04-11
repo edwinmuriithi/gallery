@@ -27,9 +27,8 @@ pipeline{
         stage('Deploy on Render'){
             steps{
                 withCredentials([usernameColonPassword(credentialsId: 'render', variable: 'RENDER_CREDENTIALS')]) {
-                sh 'git push https://git.render.com/galler-nodejs.git
-'
-}
+                sh 'git push https://git.render.com/galler-nodejs.git'
+                }
             }
         }
         
