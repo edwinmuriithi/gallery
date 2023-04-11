@@ -24,6 +24,11 @@ pipeline{
                 sh 'npm test'
             }
         }
+        stage('Slack integration'){
+            steps{
+                slackSend channel: '#nodejs-gallery', color: '#00FF00', message: "Build ${env.BUILD_NUMBER} has been successful (<https://galler-nodejs.onrender.com/|Open>)", teamDomain: 'edwinmip1', tokenCredentialId: 'Slack'
+                }
+             }
         stage('Deploy on Render'){
             steps{
                 withCredentials([usernameColonPassword(credentialsId: 'render', variable: 'RENDER_CREDENTIALS')]) {
@@ -33,10 +38,7 @@ pipeline{
         }
         
     }
-    stage('Slack integration'){
-        steps{
-            slackSend channel: '#nodejs-gallery', color: '#00FF00', message: "Build ${env.BUILD_NUMBER} has been successful (<https://galler-nodejs.onrender.com/|Open>)", teamDomain: 'edwinmip1', tokenCredentialId: 'Slack'
-        }
-    }}
+    
+    }
 }
 
